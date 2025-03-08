@@ -42,7 +42,7 @@ app.post('/users', async (req, res) => {
 })
 
 // Read All Users
-app.get('/users', async (req, res) => {
+app.get('/users', authenticate, async (req, res) => {
   try {
     const users = await User.find()
     res.json(users)
@@ -52,7 +52,7 @@ app.get('/users', async (req, res) => {
 })
 
 // Read a Single User
-app.get('/users/:id', async (req, res) => {
+app.get('/users/:id', authenticate, async (req, res) => {
   try {
     const user = await User.findById(req.params.id)
     if (!user) {
@@ -65,7 +65,7 @@ app.get('/users/:id', async (req, res) => {
 })
 
 // Update a User
-app.put('/users/:id', async (req, res) => {
+app.put('/users/:id', authenticate, async (req, res) => {
   try {
     const user = await User.findById(req.params.id)
     if (!user) {
@@ -90,7 +90,7 @@ app.put('/users/:id', async (req, res) => {
 })
 
 // Delete a User
-app.delete('/users/:id', async (req, res) => {
+app.delete('/users/:id', authenticate, async (req, res) => {
   try {
     const { id } = req.params
 
